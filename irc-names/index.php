@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-require_once '../users/init.php';  //make sure this path is correct!
+require_once '../../users/init.php';  //make sure this path is correct!
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 $logged_in = $user->data();
 $counter = 0;
@@ -20,7 +20,7 @@ if (isset($_SESSION['2ndrun'])) {
 <meta content="Wolfii Namakura" name="author">
 <meta content="hull seals, elite dangerous, distant worlds, seal team fix, mechanics, dw2" name="keywords">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
-<meta content="CMDR Registration System" name="description">
+<meta content="IRC Name Reservation" name="description">
 <title>My CMDRs | The Hull Seals</title>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
