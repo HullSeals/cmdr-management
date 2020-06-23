@@ -21,7 +21,7 @@ if (isset($_SESSION['2ndrun'])) {
 <meta content="hull seals, elite dangerous, distant worlds, seal team fix, mechanics, dw2" name="keywords">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
 <meta content="About The Long Arf" name="description">
-<title>My Aliases | The Hull Seals</title>
+<title>My CMDRs | The Hull Seals</title>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -94,7 +94,7 @@ if (isset($_SESSION['2ndrun'])) {
   <section class="introduction">
   <article>
     <h1>CMDR Management</h1>
-    <p>You may register up to 15 different 'Aliases' or CMDR Names. These are the names you will use in IRC as well as on paperwork. These do not affect your login username.</p>
+    <p>You may register up to 15 different CMDR Names/Accounts. These are the names you will use in IRC as well as on paperwork. These do not affect your login username.</p>
     <?php
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $db = include 'db.php';
@@ -103,7 +103,7 @@ if (isset($_SESSION['2ndrun'])) {
     $stmt->bind_param("i", $user->data()->id);
     $stmt->execute();
     $result = $stmt->get_result();
-    if($result->num_rows === 0) exit('<a href="new-alias.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
+    if($result->num_rows === 0) exit('<a href="new-CMDR.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
     </article>
     <div class="clearfix"></div>
     </section>
@@ -133,13 +133,13 @@ if (isset($_SESSION['2ndrun'])) {
     </footer></body>
     </html>
 ');
-    echo "<h3>Returning all Registered CMDR Aliases for: ";
+    echo "<h3>Returning all Registered CMDRs under username ";
     echo echousername($user->data()->id);
     echo nl2br ("</h3>");
     echo '<table class="table table-dark table-striped table-bordered table-hover table-responsive-md">
           <tr>
               <td>#</td>
-              <td>Alias Name</td>
+              <td>CMDR</td>
               <td>Platform</td>
               <td colspan="2">Options</td>
           </tr>';
@@ -161,19 +161,19 @@ if (isset($_SESSION['2ndrun'])) {
                         echo "Needs Updating";
                       }
                       echo '</td>
-                      <td><a href="edit-alias.php?cne='.$field2name.'" class="btn btn-warning active">Edit</a></td>
-                      <td><a href="rem-alias.php?cne='.$field2name.'" class="btn btn-danger active">Delete</a></td>
+                      <td><a href="edit-CMDR.php?cne='.$field2name.'" class="btn btn-warning active">Edit</a></td>
+                      <td><a href="rem-CMDR.php?cne='.$field2name.'" class="btn btn-danger active">Delete</a></td>
                   </tr>';
               $counter++;
         }
         echo '</table>';
         $result->free();
-        echo "Number of Aliases: ";
+        echo "Number of CMDRs: ";
         echo $counter;
         echo nl2br ("/15\n");
     ?>
     <br />
-    <a href="new-alias.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
+    <a href="new-CMDR.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
   </article>
   <div class="clearfix"></div>
   </section>

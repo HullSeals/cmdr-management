@@ -35,7 +35,7 @@ if (isset($_GET['send'])) {
         $validationErrors[] = 'invalid platform';
     }
     if ($numAlias->num_rows+1 > 15) {
-      $validationErrors[] = 'You have Too Many Registered Aliases. Remove some first!';
+      $validationErrors[] = 'You have Too Many Registered CMDRs. Remove some first!';
     }
     if (!count($validationErrors)) {
       $stmt = $mysqli->prepare('CALL spCreateAliasCleaner(?,?,?)');
@@ -59,7 +59,7 @@ if (isset($_GET['send'])) {
         <meta content="hull seals, elite dangerous, distant worlds, seal team fix, mechanics, dw2" name="keywords">
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
         <meta content="Welcome to the Hull Seals, Elite Dangerous's Premier Hull Repair Specialists!" name="description">
-        <title>New Alias | The Hull Seals</title>
+        <title>New CMDR | The Hull Seals</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -142,7 +142,7 @@ if (isset($_GET['send'])) {
             </header>
             <section class="introduction">
                 <article>
-                    <h1>Register a New Alias</h1>
+                    <h1>Register a New CMDR</h1>
                     <br />
 					          <hr />
                     <?php
@@ -155,7 +155,7 @@ if (isset($_GET['send'])) {
                     ?>
                     <form action="?send" method="post">
                         <div class="input-group mb-3">
-                            <input type="text" name="new_alias" value="<?= $lore['new_alias'] ?? '' ?>" class="form-control" placeholder="New Alias Name" aria-label="New Alias Name" required>
+                            <input type="text" name="new_alias" value="<?= $lore['new_alias'] ?? '' ?>" class="form-control" placeholder="New CMDR Name" aria-label="New CMDR Name" required>
                         </div>
                         <div class="input-group mb-3">
                                                   <div class="input-group-prepend">
@@ -173,7 +173,7 @@ if (isset($_GET['send'])) {
                         <button type="submit" class="btn btn-primary">Submit</button> <a href="." class="btn btn-warning">Go Back</a>
                     </form>
                     <?php
-    if($numAlias->num_rows === 0) exit('This will be your First Alias  </article>
+    if($numAlias->num_rows === 0) exit('This will be your First CMDR.</article>
       <div class="clearfix"></div>
       </section>
       </div>
@@ -203,7 +203,7 @@ if (isset($_GET['send'])) {
       </html>
 ');
     echo "<br />";
-    echo "<h4>This is alias # ";
+    echo "<h4>This is CMDR # ";
     echo $numAlias->num_rows+1;
 	  echo " under the username ";
     echo echousername($user->data()->id);

@@ -51,7 +51,7 @@ $stmt = $mysqli->prepare("SELECT * FROM staff WHERE seal_ID = ? AND seal_name = 
   <meta content="hull seals, elite dangerous, distant worlds, seal team fix, mechanics, dw2" name="keywords">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
   <meta content="About The Long Arf" name="description">
-  <title>Edit Alias | The Hull Seals</title>
+  <title>Edit CMDR | The Hull Seals</title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -123,7 +123,7 @@ $stmt = $mysqli->prepare("SELECT * FROM staff WHERE seal_ID = ? AND seal_name = 
       </header>
       <section class="introduction">
       <article>
-        <h1>Remove Alias</h1>
+        <h1>Remove CMDR</h1>
         <?php
         if (count($validationErrors)) {
             foreach ($validationErrors as $error) {
@@ -132,11 +132,12 @@ $stmt = $mysqli->prepare("SELECT * FROM staff WHERE seal_ID = ? AND seal_name = 
             echo '<br>';
         }
         ?>
+        <h5>Are you Sure you want to remove the CMDR Name <?php echo $fluffernutter; ?></h5>
         <form action="?send" method="post">
           <div class="input-group mb-3">
             <input type="hidden" name="numberedt" value="<?php echo $salsa; ?>" required>
           </div>
-          <button type="submit" class="btn btn-danger">Are you Sure you want to remove the alias <?php echo $fluffernutter; ?></button> <a href="." class="btn btn-warning">Go Back</a>
+          <button type="submit" class="btn btn-danger">Yes, Remove.</button> <a href="." class="btn btn-warning">Go Back</a>
           </form>
         </article>
         </section>
