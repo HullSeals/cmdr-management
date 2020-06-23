@@ -137,8 +137,7 @@ if (isset($_GET['send'])) {
     <article>
       <h1>Edit Alias</h1>
       <br />
-      <h5>Please enter the alias. Please replace spaces with other characters, or remove them entirely. <br /><br /> Special characters are also not valid, and must be removed.</h5>
-<hr />
+      <hr />
       <?php
       if (count($validationErrors)) {
           foreach ($validationErrors as $error) {
@@ -152,7 +151,7 @@ if (isset($_GET['send'])) {
                   <div class="input-group-prepend">
                       <span class="input-group-text">Edited Name:</span>
                   </div>
-                  <input type="text" name="edt_alias" value="<?php echo $fluffernutter; ?>" class="form-control" placeholder="Edited Alias Name" aria-label="Edited Alias Name" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" required>
+                  <input type="text" name="edt_alias" value="<?php echo $fluffernutter; ?>" class="form-control" placeholder="Edited Alias Name" aria-label="Edited Alias Name" required>
                   <input type="hidden" name="numberedt" value="<?php echo $salsa; ?>" required>
                   </div>
                   <div class="input-group mb-3">

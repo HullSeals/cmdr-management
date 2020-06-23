@@ -144,8 +144,7 @@ if (isset($_GET['send'])) {
                 <article>
                     <h1>Register a New Alias</h1>
                     <br />
-					<h5>Please enter the alias. Please replace spaces with other characters, or remove them entirely. <br /><br /> Special characters are also not valid, and must be removed.</h5>
-					<hr />
+					          <hr />
                     <?php
                     if (count($validationErrors)) {
                         foreach ($validationErrors as $error) {
@@ -156,7 +155,7 @@ if (isset($_GET['send'])) {
                     ?>
                     <form action="?send" method="post">
                         <div class="input-group mb-3">
-                            <input type="text" name="new_alias" value="<?= $lore['new_alias'] ?? '' ?>" class="form-control" placeholder="New Alias Name" aria-label="New Alias Name" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" required>
+                            <input type="text" name="new_alias" value="<?= $lore['new_alias'] ?? '' ?>" class="form-control" placeholder="New Alias Name" aria-label="New Alias Name" required>
                         </div>
                         <div class="input-group mb-3">
                                                   <div class="input-group-prepend">

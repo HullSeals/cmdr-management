@@ -103,7 +103,7 @@ if (isset($_SESSION['2ndrun'])) {
     $stmt->bind_param("i", $user->data()->id);
     $stmt->execute();
     $result = $stmt->get_result();
-    if($result->num_rows === 0) exit('<a href="new_alias.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
+    if($result->num_rows === 0) exit('<a href="new-alias.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
     </article>
     <div class="clearfix"></div>
     </section>
@@ -161,8 +161,8 @@ if (isset($_SESSION['2ndrun'])) {
                         echo "Needs Updating";
                       }
                       echo '</td>
-                      <td><a href="edit_alias.php?cne='.$field2name.'" class="btn btn-warning active">Edit</a></td>
-                      <td><a href="rem_alias.php?cne='.$field2name.'" class="btn btn-danger active">Delete</a></td>
+                      <td><a href="edit-alias.php?cne='.$field2name.'" class="btn btn-warning active">Edit</a></td>
+                      <td><a href="rem-alias.php?cne='.$field2name.'" class="btn btn-danger active">Delete</a></td>
                   </tr>';
               $counter++;
         }
@@ -173,7 +173,7 @@ if (isset($_SESSION['2ndrun'])) {
         echo nl2br ("/15\n");
     ?>
     <br />
-    <a href="new_alias.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
+    <a href="new-alias.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
   </article>
   <div class="clearfix"></div>
   </section>
