@@ -28,17 +28,17 @@ if (isset($_GET['send'])) {
     foreach ($_REQUEST as $key => $value) {
         $lore[$key] = strip_tags(stripslashes(str_replace(["'", '"'], '', $value)));
     }
-//    if (!count($validationErrors)) {
-  //    $stmt = $mysqli->prepare('CALL spEditAliasCleaner(?,?)');
-    //  $stmt->bind_param('si', $lore['edt_alias'], $lore['numberedt']);
-//      $stmt->execute();
-  //    foreach ($stmt->error_list as $error) {
-    //      $validationErrors[] = 'DB: ' . $error['error'];
-      //}
-//      $stmt->close();
-//          unset($_SESSION['2ndrun']);
-//      header("Location: .");
-//    }
+    if (!count($validationErrors)) {
+      $stmt = $mysqli->prepare('CALL spEditIRCCleaner(?,?)');
+      $stmt->bind_param('si', $lore['edt_alias'], $lore['numberedt']);
+      $stmt->execute();
+      foreach ($stmt->error_list as $error) {
+          $validationErrors[] = 'DB: ' . $error['error'];
+      }
+      $stmt->close();
+          unset($_SESSION['2ndrun']);
+      header("Location: .");
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -124,7 +124,7 @@ if (isset($_GET['send'])) {
     <section class="introduction">
     <article>
       <h1>Edit Alias</h1>
-      <br />
+      <p>Your IRC Nickname must not have any special characters or spaces. Please replace all spaces with underscores.</p>
       <hr />
       <?php
       if (count($validationErrors)) {
@@ -139,7 +139,7 @@ if (isset($_GET['send'])) {
                   <div class="input-group-prepend">
                       <span class="input-group-text">Edited Alias:</span>
                   </div>
-                  <input type="text" name="edt_alias" value="<?php echo $fluffernutter; ?>" class="form-control" placeholder="Edited Alias Name" aria-label="Edited Alias Name" required>
+                  <input type="text" name="edt_alias" value="<?php echo $fluffernutter; ?>" class="form-control" placeholder="Edited Alias Name" aria-label="Edited Alias Name" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" required>
                   <input type="hidden" name="numberedt" value="<?php echo $salsa; ?>" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button> <a href="." class="btn btn-warning">Go Back</a>
