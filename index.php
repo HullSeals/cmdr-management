@@ -103,7 +103,7 @@ if (isset($_SESSION['2ndrun'])) {
     $stmt->bind_param("i", $user->data()->id);
     $stmt->execute();
     $result = $stmt->get_result();
-    if($result->num_rows === 0) exit('<a href="new-CMDR.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
+    if($result->num_rows === 0) exit('<a href="new-CMDR.php" class="btn btn-success btn-lg active" >Register a New CMDR</a> or <a href="irc-names" class="btn btn-secondary btn-lg active">Go to IRC Names</a>
     </article>
     <div class="clearfix"></div>
     </section>
@@ -170,7 +170,7 @@ if (isset($_SESSION['2ndrun'])) {
         echo nl2br ("/15\n");
     ?>
     <br />
-    <a href="new-CMDR.php" class="btn btn-success btn-lg active" >Register a New CMDR</a>
+    <a href="new-CMDR.php" class="btn btn-success btn-lg active" >Register a New CMDR</a> or <a href="irc-names" class="btn btn-secondary btn-lg active">Go to IRC Names</a>
   </article>
   <div class="clearfix"></div>
   </section>
