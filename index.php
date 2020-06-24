@@ -133,9 +133,6 @@ if (isset($_SESSION['2ndrun'])) {
     </footer></body>
     </html>
 ');
-    echo "<h3>Returning all Registered CMDRs under username ";
-    echo echousername($user->data()->id);
-    echo nl2br ("</h3>");
     echo '<table class="table table-dark table-striped table-bordered table-hover table-responsive-md">
           <tr>
               <td>#</td>
