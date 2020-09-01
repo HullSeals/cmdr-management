@@ -7,11 +7,36 @@ error_reporting(E_ALL);
 require_once '../users/init.php';  //make sure this path is correct!
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
+//IP Tracking Stuff
+require '../assets/includes/ipinfo.php';
+
 $counter = 0;
 if (isset($_SESSION['2ndrun'])) {
   unset($_SESSION['2ndrun']);
 }
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+$db = include 'db.php';
+$mysqli = new mysqli($db['server'], $db['user'], $db['pass'], $db['db'], $db['port']);
+
+$validationErrors = [];
+$lore = [];
+if (isset($_GET['send'])) {
+    foreach ($_REQUEST as $key => $value) {
+        $lore[$key] = strip_tags(stripslashes(str_replace(["'", '"'], '', $value)));
+    }
+    if (!count($validationErrors)) {
+        $stmt = $mysqli->prepare('CALL spRemAlias(?,?)');
+        $stmt->bind_param('is',$lore['numberedt'], $lgd_ip);
+        $stmt->execute();
+        foreach ($stmt->error_list as $error) {
+            $validationErrors[] = 'DB: ' . $error['error'];
+        }
+        $stmt->close();
+        unset($_SESSION['2ndrun']);
+        header("Location: .");
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,10 +55,7 @@ if (isset($_SESSION['2ndrun'])) {
     <h1>CMDR Management</h1>
     <p>You may register up to 15 different CMDR Names/Accounts. These are the names used on paperwork and records. These do not affect your login username.</p>
     <?php
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    $db = include 'db.php';
-    $mysqli = new mysqli($db['server'], $db['user'], $db['pass'], $db['db'], $db['port']);
-    $stmt = $mysqli->prepare("SELECT seal_ID, seal_name, platform FROM staff WHERE seal_ID =? AND del_flag <>1");
+    $stmt = $mysqli->prepare("SELECT seal_ID, seal_name, platform, ID FROM staff WHERE seal_ID =? AND del_flag <>1");
     $stmt->bind_param("i", $user->data()->id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -78,6 +100,7 @@ if (isset($_SESSION['2ndrun'])) {
             $field1name = $counter+1;
             $field2name = $row["seal_name"];
             $field3name = $row["platform"];
+            $field4name = $row["ID"];
             echo '<tr>
                       <td>'.$field1name.'</td>
                       <td>'.$field2name.'</td>
@@ -93,8 +116,30 @@ if (isset($_SESSION['2ndrun'])) {
                       }
                       echo '</td>
                       <td><a href="edit-CMDR.php?cne='.$field2name.'" class="btn btn-warning active">Edit</a></td>
-                      <td><a href="rem-CMDR.php?cne='.$field2name.'" class="btn btn-danger active">Delete</a></td>
+                      <td><button type="button" class="btn btn-danger active" data-toggle="modal" data-target="#mo'.$field1name.'">Delete</button></td>
                   </tr>';
+                  echo '<div class="modal fade" id="mo'.$field1name.'" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color:black;">Delete CMDR?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color:black;">
+        Are you sure you want to delete CMDR "'.$field2name.'"?
+      </div>
+      <div class="modal-footer">
+        <form action="?send" method="post">
+            <input type="hidden" name="numberedt" value="'.$field4name.'" required>
+          <button type="submit" class="btn btn-danger">Yes, Remove.</button><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>';
+
               $counter++;
         }
         echo '</table>';
