@@ -65,7 +65,7 @@ if (isset($_GET['send'])) {
                     ?>
                     <form action="?send" method="post">
                         <div class="input-group mb-3">
-                            <input type="text" name="new_alias" value="<?= $lore['new_alias'] ?? '' ?>" class="form-control" placeholder="New Alias" aria-label="New Alias" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" required>
+                            <input type="text" name="new_alias" value="<?= $lore['new_alias'] ?? '' ?>" class="form-control" placeholder="New Alias" aria-label="New Alias" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" maxlength="30" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button> <a href="." class="btn btn-warning">Go Back</a>
                     </form>

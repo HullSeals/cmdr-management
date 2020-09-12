@@ -75,7 +75,7 @@ if (isset($_GET['send'])) {
                   <div class="input-group-prepend">
                       <span class="input-group-text">Edited Alias:</span>
                   </div>
-                  <input type="text" name="edt_alias" value="<?php echo $fluffernutter; ?>" class="form-control" placeholder="Edited Alias Name" aria-label="Edited Alias Name" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" required>
+                  <input type="text" name="edt_alias" value="<?php echo $fluffernutter; ?>" class="form-control" placeholder="Edited Alias Name" aria-label="Edited Alias Name" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" maxlength="30" required>
                   <input type="hidden" name="numberedt" value="<?php echo $salsa; ?>" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button> <a href="." class="btn btn-warning">Go Back</a>
