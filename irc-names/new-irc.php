@@ -6,15 +6,15 @@ error_reporting(E_ALL);
 //UserSpice Required
 require_once '../../users/init.php';  //make sure this path is correct!
 if (!securePage($_SERVER['PHP_SELF'])){die();}
-
+$myUname = echousername($user->data()->id);
 //IP Tracking Stuff
 require '../../assets/includes/ipinfo.php';
 
 $db = include '../db.php';
-$mysqli = new mysqli($db['server'], $db['user'], $db['pass'], $db['db'], $db['port']);
+$mysqli = new mysqli($db['server'], $db['user'], $db['pass'], 'ircDB', $db['port']);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-$stmt = $mysqli->prepare("SELECT seal_ID FROM irc WHERE seal_ID =?");
-$stmt->bind_param("i", $user->data()->id);
+$stmt = $mysqli->prepare("SELECT nc FROM anope_db_NickAlias WHERE nc =?");
+$stmt->bind_param("s", $myUname);
 $stmt->execute();
 $numAlias = $stmt->get_result();
 $stmt->close();
@@ -28,8 +28,8 @@ if (isset($_GET['send'])) {
       $validationErrors[] = 'You have Too Many Registered Aliases. Remove some first!';
     }
     if (!count($validationErrors)) {
-      $stmt = $mysqli->prepare('CALL spCreateIRCCleaner(?,?,?)');
-      $stmt->bind_param('sis', $lore['new_alias'], $user->data()->id, $lgd_ip);
+      $stmt = $mysqli->prepare('CALL spCreateIRCCleaner(?,?,?,?)');
+      $stmt->bind_param('siss', $lore['new_alias'], $user->data()->id, $lgd_ip, echousername($user->data()->id));
       $stmt->execute();
       foreach ($stmt->error_list as $error) {
           $validationErrors[] = 'DB: ' . $error['error'];
@@ -100,7 +100,7 @@ Site content copyright © 2020, The Hull Seals. All Rights Reserved. Elite Dange
       </html>
 ');
     echo "<br />";
-    echo "<h5>This is Aias # ";
+    echo "<h5>This is Alias # ";
     echo $numAlias->num_rows+1;
 	  echo " under the username ";
     echo echousername($user->data()->id);

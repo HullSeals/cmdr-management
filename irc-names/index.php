@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 //UserSpice Required
 require_once '../../users/init.php';  //make sure this path is correct!
 if (!securePage($_SERVER['PHP_SELF'])){die();}
+$myUname = echousername($user->data()->id);
 
 //IP Tracking Stuff
 require '../../assets/includes/ipinfo.php';
@@ -18,7 +19,7 @@ if (isset($_SESSION['2ndrun'])) {
 //DB Info
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $db = include '../db.php';
-$mysqli = new mysqli($db['server'], $db['user'], $db['pass'], $db['db'], $db['port']);
+$mysqli = new mysqli($db['server'], $db['user'], $db['pass'], 'ircDB', $db['port']);
 
 $validationErrors = [];
 $lore = [];
@@ -57,10 +58,10 @@ if (isset($_GET['send'])) {
           <section class="introduction container">
   	    <article id="intro3">
     <h1>IRC Name Reservation</h1>
-    <p>You may reserve up to 15 different Aliases. These are the names you will use in IRC. These do not affect your login username.</p>
+    <p>You may reserve up to 15 different Aliases. These are the names you will use in IRC. These do not affect your login username. Deleted names are purged on a monthly basis, and may take up to 30 days to be processed.</p>
     <?php
-    $stmt = $mysqli->prepare("SELECT seal_ID, irc_name, ID FROM irc WHERE seal_ID =? AND del_flag <> 1");
-    $stmt->bind_param("i", $user->data()->id);
+    $stmt = $mysqli->prepare("SELECT nick, id FROM anope_db_NickAlias WHERE nc = ? AND del_flag <> 1");
+    $stmt->bind_param("s", $myUname);
     $stmt->execute();
     $result = $stmt->get_result();
     if($result->num_rows === 0) exit('<a href="new-irc.php" class="btn btn-success btn-lg active" >Register a New IRC Alias</a> or <a href="../" class="btn btn-secondary btn-lg active">Go to My CMDRs</a>
@@ -101,8 +102,8 @@ if (isset($_GET['send'])) {
           </tr>';
         while ($row = $result->fetch_assoc()) {
             $field1name = $counter+1;
-            $field2name = $row["irc_name"];
-            $field3name = $row["ID"];
+            $field2name = $row["nick"];
+            $field3name = $row["id"];
             echo '<tr>
                       <td>'.$field1name.'</td>
                       <td>'.$field2name.'</td>

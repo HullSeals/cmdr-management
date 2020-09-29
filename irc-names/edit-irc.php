@@ -6,15 +6,16 @@ error_reporting(E_ALL);
 //UserSpice Required
 require_once '../../users/init.php';  //make sure this path is correct!
 if (!securePage($_SERVER['PHP_SELF'])){die();}
+$myUname = echousername($user->data()->id);
 
 //IP Tracking Stuff
 require '../../assets/includes/ipinfo.php';
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $db = include '../db.php';
-$mysqli = new mysqli($db['server'], $db['user'], $db['pass'], $db['db'], $db['port']);
-$stmt = $mysqli->prepare("SELECT * FROM irc WHERE seal_ID = ? AND irc_name = ? AND del_flag <> 1");
-    $stmt->bind_param("is", $user->data()->id, $_GET['cne']);
+$mysqli = new mysqli($db['server'], $db['user'], $db['pass'], 'ircDB', $db['port']);
+$stmt = $mysqli->prepare("SELECT * FROM anope_db_NickAlias WHERE nc = ? AND nick = ? AND del_flag <> 1");
+    $stmt->bind_param("ss", $myUname, $_GET['cne']);
     $stmt->execute();
     $result = $stmt->get_result();
     if (!isset($_SESSION['2ndrun'])){
@@ -24,8 +25,8 @@ $stmt = $mysqli->prepare("SELECT * FROM irc WHERE seal_ID = ? AND irc_name = ? A
   }
   $_SESSION['2ndrun'] = true;
 $chickennugget = $result->fetch_assoc();
-$fluffernutter = $chickennugget['irc_name'];
-$salsa = $chickennugget['ID'];
+$fluffernutter = $chickennugget['nick'];
+$salsa = $chickennugget['id'];
 $stmt->close();
 $validationErrors = [];
 $lore = [];
@@ -34,8 +35,8 @@ if (isset($_GET['send'])) {
         $lore[$key] = strip_tags(stripslashes(str_replace(["'", '"'], '', $value)));
     }
     if (!count($validationErrors)) {
-      $stmt = $mysqli->prepare('CALL spEditIRCCleaner(?,?,?)');
-      $stmt->bind_param('sis', $lore['edt_alias'], $lore['numberedt'], $lgd_ip);
+      $stmt = $mysqli->prepare('CALL spEditIRCCleaner(?,?,?,?)');
+      $stmt->bind_param('siss', $lore['edt_alias'], $lore['numberedt'], $lgd_ip, $myUname);
       $stmt->execute();
       foreach ($stmt->error_list as $error) {
           $validationErrors[] = 'DB: ' . $error['error'];
