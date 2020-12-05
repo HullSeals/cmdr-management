@@ -182,7 +182,7 @@ if (isset($_GET['edit'])) {
 								<hr>
 								<form action="?new" method="post">
 									<div class="input-group mb-3">
-										<input aria-label="New Alias" class="form-control" maxlength="30" name="new_alias" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" placeholder="New Alias" required="" type="text" value="&lt;?= $lore['new_alias'] ?? '' ?&gt;">
+										<input aria-label="New Alias" class="form-control" maxlength="30" name="new_alias" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" placeholder="New Alias" required="" type="text" value="<?= $lore['new_alias'] ?? '' ?>;">
 									</div>
 									<div class="modal-footer">
 										<button class="btn btn-primary" type="submit">Submit</button><button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
