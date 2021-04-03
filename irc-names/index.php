@@ -108,10 +108,16 @@ if (isset($_GET['edit'])) {
 				            echo '<tr>
 				                      <td>'.$field1name.'</td>
 				                      <td>'.$field2name.'</td>
-				                      <td><button type="button" class="btn btn-warning active" data-toggle="modal" data-target="#moE'.$field1name.'">Edit</button></td>
-				                      <td><button type="button" class="btn btn-danger active" data-toggle="modal" data-target="#mo'.$field1name.'">Delete</button>
-				                      </td>
-				                  </tr>';
+				                      <td><button type="button" class="btn btn-warning active" data-toggle="modal" data-target="#moE'.$field1name.'">Edit</button></td>';
+                              if($result->num_rows === 1) {
+                                echo '<td>You cannot delete the last record in the table.
+                                </td>';
+                                }
+                                else {
+				                      echo '<td><button type="button" class="btn btn-danger active" data-toggle="modal" data-target="#mo'.$field1name.'">Delete</button>
+				                      </td>';
+                            }
+				                  echo '</tr>';
 				                  echo '<div class="modal fade" id="mo'.$field1name.'" tabindex="-1" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered">
 				    <div class="modal-content">
