@@ -18,7 +18,7 @@ $mysqli = new mysqli($db['server'], $db['user'], $db['pass'], $db['db'], $db['po
 
 $platformList = [];
 $res = $mysqli->query('SELECT * FROM lookups.platform_lu ORDER BY platform_id');
-while ($burgerking = $res->fetch_assoc()) {
+while ($burgerking = $res->fetch_assoc()[0]?? null) {
     if ($burgerking['platform_name'] == 'ERR') {
         continue;
     }
@@ -41,14 +41,6 @@ if (isset($_GET['send'])) {
         $stmt->close();
         header("Location: .");
   }
-}
-$platformList = [];
-$res = $mysqli->query('SELECT * FROM lookups.platform_lu ORDER BY platform_id');
-while ($burgerking = $res->fetch_assoc()) {
-    if ($burgerking['platform_name'] == 'ERR') {
-        continue;
-    }
-    $platformList[$burgerking['platform_id']] = $burgerking['platform_name'];
 }
 if (isset($_GET['edit'])) {
     foreach ($_REQUEST as $key => $value) {
