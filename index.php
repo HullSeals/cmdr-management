@@ -177,7 +177,10 @@ if (isset($_GET['new'])) {
     								Choose...
     							</option>';
     				 foreach ($platformList as $platformId => $platformName) {
+               if (!is_array($burgerking['platform'] ?? false)) continue;
+               else {
     				     echo '<option value="' . $platformId . '"' . ($burgerking['platform'] == $platformId ? ' checked' : '') . '>' . $platformName . '</option>';
+               }
     				 };
     						echo '</select>
     					</div>				      <div class="modal-footer">
