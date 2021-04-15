@@ -18,7 +18,7 @@ $mysqli = new mysqli($db['server'], $db['user'], $db['pass'], $db['db'], $db['po
 
 $platformList = [];
 $res = $mysqli->query('SELECT * FROM lookups.platform_lu ORDER BY platform_id');
-while ($burgerking = $res->fetch_assoc()[0]?? null) {
+while ($burgerking = $res->fetch_assoc()) {
     if ($burgerking['platform_name'] == 'ERR') {
         continue;
     }
