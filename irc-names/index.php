@@ -88,8 +88,8 @@ if (isset($_GET['edit'])) {
 			<article id="intro3">
 				<h1>IRC Name Reservation</h1>
 				<p>You may reserve up to 15 different Aliases. These are the names you will use in IRC. These do not affect your login username. Deleted names are purged on a monthly basis, and may take up to 30 days to be processed.</p><?php
-				    $stmt = $mysqli->prepare("SELECT nick, id FROM anope_db_NickAlias WHERE nc = ? AND (del_flag <> 1 OR del_flag IS NULL)");
-				    $stmt->bind_param("s", $myUname);
+				    $stmt = $mysqli->prepare("SELECT nick, na.id FROM anope_db_NickAlias AS na JOIN anope_db_NickCore AS nc ON nc.display = na.nc WHERE nc.id = ? AND (del_flag <> 1 OR del_flag IS NULL)");
+				    $stmt->bind_param("i", $user->data()->id);
 				    $stmt->execute();
 				    $result = $stmt->get_result();
 				    if($result->num_rows === 0) {
