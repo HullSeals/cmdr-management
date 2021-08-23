@@ -25,6 +25,16 @@ while ($burgerking = $res->fetch_assoc()) {
     $platformList[$burgerking['platform_id']] = $burgerking['platform_name'];
 }
 
+$platformList2 = [];
+$respl = $mysqli->query('SELECT * FROM lookups.platform_lu ORDER BY platform_id');
+while ($pl2bk = $respl->fetch_assoc()) {
+    if ($pl2bk['platform_name'] == 'ERR') {
+        continue;
+    }
+    $platformList[$pl2bk['platform_id']] = $pl2bk['platform_name'];
+}
+
+
 $validationErrors = [];
 $lore = [];
 if (isset($_GET['send'])) {
@@ -177,10 +187,7 @@ if (isset($_GET['new'])) {
     								Choose...
     							</option>';
     				 foreach ($platformList as $platformId => $platformName) {
-               if (!is_array($burgerking['platform'] ?? false)) continue;
-               else {
-    				     echo '<option value="' . $platformId . '"' . ($burgerking['platform'] == $platformId ? ' checked' : '') . '>' . $platformName . '</option>';
-               }
+    				     echo '<option value="' . $platformId . '"' . ($pl2bk['platform'] == $platformId ? ' checked' : '') . '>' . $platformName . '</option>';
     				 };
     						echo '</select>
     					</div>				      <div class="modal-footer">
