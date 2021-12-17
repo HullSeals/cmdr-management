@@ -43,7 +43,7 @@ if (isset($_GET['new'])) {
       $validationErrors[] = 'You have Too Many Registered Aliases. Remove some first!';
     }
     if (!count($validationErrors)) {
-      $stmt = $mysqli->prepare('CALL spCreateIRCCleaner(?,?,?,?)');
+      $stmt = $mysqli->prepare('CALL spCreateIRC(?,?,?,?)');
       $stmt->bind_param('siss', $lore['new_alias'], $user->data()->id, $lgd_ip, echousername($user->data()->id));
       $stmt->execute();
       foreach ($stmt->error_list as $error) {
@@ -58,8 +58,8 @@ if (isset($_GET['edit'])) {
         $lore[$key] = strip_tags(stripslashes(str_replace(["'", '"'], '', $value)));
     }
     if (!count($validationErrors)) {
-      $stmt = $mysqli->prepare('CALL spEditIRCCleaner(?,?,?,?)');
-      $stmt->bind_param('siss', $lore['edt_alias'], $lore['numberedt'], $lgd_ip, $myUname);
+      $stmt = $mysqli->prepare('CALL spEditIRC(?,?,?)');
+      $stmt->bind_param('sis', $lore['edt_alias'], $lore['numberedt'], $lgd_ip);
       $stmt->execute();
       foreach ($stmt->error_list as $error) {
           $validationErrors[] = 'DB: ' . $error['error'];
@@ -188,7 +188,7 @@ if (isset($_GET['edit'])) {
 								<hr>
 								<form action="?new" method="post">
 									<div class="input-group mb-3">
-										<input aria-label="New Alias" class="form-control" maxlength="30" name="new_alias" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" placeholder="New Alias" required="" type="text" value="<?= $lore['new_alias'] ?? '' ?>;">
+										<input aria-label="New Alias" class="form-control" maxlength="30" name="new_alias" pattern="[a-zA-Z0-9-_.`|\[\]\{\}]{1,45}" placeholder="New Alias" required="" type="text" value="<?= $lore['new_alias'] ?? '' ?>">
 									</div>
 									<div class="modal-footer">
 										<button class="btn btn-primary" type="submit">Submit</button><button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>

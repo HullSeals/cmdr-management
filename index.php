@@ -135,9 +135,12 @@ if (isset($_GET['new'])) {
 				                        echo "Xbox";
 				                      } elseif ($field3name=="3") {
 				                        echo "PlayStation";
-				                      } elseif ($field3name=="4") {
-				                        echo "Needs Updating";
+				                      } elseif ($field3name=="5") {
+				                        echo "PC";
 				                      }
+                              else {
+                                echo "Needs Updating";
+                              }
 				                      echo '</td>
 				                      <td><button type="button" class="btn btn-warning active" data-toggle="modal" data-target="#moE'.$field1name.'">Edit</button></td>
 				                      <td><button type="button" class="btn btn-danger active" data-toggle="modal" data-target="#mo'.$field1name.'">Delete</button></td>
@@ -187,7 +190,7 @@ if (isset($_GET['new'])) {
     								Choose...
     							</option>';
     				 foreach ($platformList as $platformId => $platformName) {
-    				     echo '<option value="' . $platformId . '"' . ($pl2bk['platform'] == $platformId ? ' checked' : '') . '>' . $platformName . '</option>';
+    				     echo '<option value="' . $platformId . '"' . ($burgerking['platform'] == $platformId ? ' checked' : '') . '>' . $platformName . '</option>';
     				 };
     						echo '</select>
     					</div>				      <div class="modal-footer">
