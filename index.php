@@ -60,7 +60,7 @@ if (isset($_GET['edit'])) {
         $validationErrors[] = 'invalid platform';
     }
     if (!count($validationErrors)) {
-      $stmt = $mysqli->prepare('CALL spEditAliasCleaner(?,?,?,?)');
+      $stmt = $mysqli->prepare('CALL spEditAlias(?,?,?,?)');
       $stmt->bind_param('siis', $lore['edt_alias'], $lore['platform'], $lore['numberedt'], $lgd_ip);
       $stmt->execute();
       foreach ($stmt->error_list as $error) {
@@ -81,7 +81,7 @@ if (isset($_GET['new'])) {
       $validationErrors[] = 'You have Too Many Registered CMDRs. Remove some first!';
     }
     if (!count($validationErrors)) {
-      $stmt = $mysqli->prepare('CALL spCreateAliasCleaner(?,?,?,?)');
+      $stmt = $mysqli->prepare('CALL spCreateAlias(?,?,?,?)');
       $stmt->bind_param('siis', $lore['new_alias'], $lore['platform'], $user->data()->id, $lgd_ip);
       $stmt->execute();
       foreach ($stmt->error_list as $error) {
