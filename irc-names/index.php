@@ -3,13 +3,24 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+//Declare Title, Content, Author
+$pgAuthor = "";
+$pgContent = "";
+$useIP = 1; //1 if Yes, 0 if No.
+
+//If you have any custom scripts, CSS, etc, you MUST declare them here.
+//They will be inserted at the bottom of the <head> section.
+$customContent = '<script>
+   $(\'#myModal\').on(\'shown.bs.modal\', function () {
+ $(\'#myInput\').trigger(\'focus\')
+})
+</script>
+';
+
 //UserSpice Required
 require_once '../../users/init.php';  //make sure this path is correct!
+require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 if (!securePage($_SERVER['PHP_SELF'])){die();}
-$myUname = echousername($user->data()->id);
-
-//IP Tracking Stuff
-require '../../assets/includes/ipinfo.php';
 
 $counter = 0;
 
@@ -68,24 +79,7 @@ if (isset($_GET['edit'])) {
       header("Location: .");
     }
 }
-
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta content="IRC Aliases" name="description">
-	<title>IRC Aliases | The Hull Seals</title><?php include '../../assets/includes/headerCenter.php'; ?>
-	<script>
-	   $('#myModal').on('shown.bs.modal', function () {
-	 $('#myInput').trigger('focus')
-	})
-	</script>
-</head>
-<body>
-	<div id="home">
-		<?php include '../../assets/includes/menuCode.php';?>
-		<section class="introduction container">
-			<article id="intro3">
 				<h1>IRC Name Reservation</h1>
 				<p>You may reserve up to 15 different Aliases. These are the names you will use in IRC. These do not affect your login username. Deleted names are purged on a monthly basis, and may take up to 30 days to be processed.</p><?php
 				    $stmt = $mysqli->prepare("SELECT nick, na.id FROM anope_db_NickAlias AS na JOIN anope_db_NickCore AS nc ON nc.display = na.nc WHERE nc.id = ? AND (del_flag <> 1 OR del_flag IS NULL)");
@@ -198,9 +192,4 @@ if (isset($_GET['edit'])) {
 						</div>
 					</div>
 				</div>
-			</article>
-		</section>
-	</div>
-	<div class="clearfix"></div><?php include '../../assets/includes/footer.php'; ?>
-</body>
-</html>
+<?php require_once $abs_us_root . $us_url_root . 'users/includes/html_footer.php'; ?>

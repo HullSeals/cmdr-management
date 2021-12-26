@@ -3,12 +3,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+//Declare Title, Content, Author
+$pgAuthor = "";
+$pgContent = "";
+$useIP = 0; //1 if Yes, 0 if No.
+
 //UserSpice Required
 require_once '../users/init.php';  //make sure this path is correct!
+require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 if (!securePage($_SERVER['PHP_SELF'])){die();}
-
-//IP Tracking Stuff
-require '../assets/includes/ipinfo.php';
 
 $counter = 0;
 
@@ -91,19 +94,7 @@ if (isset($_GET['new'])) {
   header("Location: .");
     }
 }
-
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta content="CMDR Management" name="description">
-	<title>CMDR Management | The Hull Seals</title><?php include '../assets/includes/headerCenter.php'; ?>
-</head>
-<body>
-	<div id="home">
-		<?php include '../assets/includes/menuCode.php';?>
-		<section class="introduction container">
-			<article id="intro3">
 				<h1>CMDR Management</h1>
 				<p>You may register up to 15 different CMDR Names/Accounts. These are the names used on paperwork and records. These do not affect your login username.</p><?php
 				    $stmt = $mysqli->prepare("SELECT seal_ID, seal_name, platform, ID FROM staff WHERE seal_ID =? AND del_flag <>1");
@@ -185,12 +176,15 @@ if (isset($_GET['new'])) {
     					<div class="input-group mb-3">
     						<div class="input-group-prepend">
     							<span class="input-group-text">Platform</span>
-    						</div><select class="custom-select" id="inputGroupSelect01" name="platform" required="">
-    							<option disabled selected value="4">
-    								Choose...
-    							</option>';
+    						</div><select class="custom-select" id="inputGroupSelect01" name="platform" required="">';
     				 foreach ($platformList as $platformId => $platformName) {
-    				     echo '<option value="' . $platformId . '"' . ($burgerking['platform'] == $platformId ? ' checked' : '') . '>' . $platformName . '</option>';
+               if ($platformId == $field3name) {
+                 $selected = "selected";
+               }
+               else {
+                 $selected = "";
+               }
+    				     echo '<option value="' . $platformId . '"'. $selected .'>' . $platformName . '</option>';
     				 };
     						echo '</select>
     					</div>				      <div class="modal-footer">
@@ -229,7 +223,7 @@ if (isset($_GET['new'])) {
     <option value="4" selected disabled>Choose...</option>
       <?php
       foreach ($platformList as $platformId => $platformName) {
-          echo '<option value="' . $platformId . '"' . ($burgerking['platform'] == $platformId ? ' checked' : '') . '>' . $platformName . '</option>';
+          echo '<option value="' . $platformId . '">' . $platformName . '</option>';
       }
       ?>
   </select>
@@ -242,9 +236,4 @@ if (isset($_GET['new'])) {
             </div>
           </div>
         </div>
-			</article>
-			<div class="clearfix"></div>
-		</section>
-	</div><?php include '../assets/includes/footer.php'; ?>
-</body>
-</html>
+<?php require_once $abs_us_root . $us_url_root . 'users/includes/html_footer.php'; ?>
