@@ -248,7 +248,7 @@ else
               <div class="modal-body" style="color:black;">
                 <form action="?new" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" name="new_alias" value="<?=$lore['new_alias'] ? ? '' ?>" class="form-control" placeholder="New CMDR Name" aria-label="New CMDR Name" required>
+                        <input type="text" name="new_alias" value="<?=$lore['new_alias'] ?? '' ?>" class="form-control" placeholder="New CMDR Name" aria-label="New CMDR Name" required>
                     </div>
                     <div class="input-group mb-3">
   <div class="input-group-prepend">
