@@ -156,7 +156,7 @@ else
         {
             echo "PlayStation";
         }
-        elseif ($field3name == "5")
+        elseif ($field3name == "4")
         {
             echo "PC";
         }
