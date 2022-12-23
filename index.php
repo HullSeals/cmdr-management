@@ -87,49 +87,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows != 0) {
   echo '<table class="table table-dark table-striped table-bordered table-hover table-responsive-md">
-				          <tr>
-				              <td>#</td>
-				              <td>CMDR</td>
-				              <td>Platform</td>
-				              <td colspan="2">Options</td>
-				          </tr>';
-<<<<<<< Updated upstream
-    while ($row = $result->fetch_assoc())
-    {
-        $field1name = $counter + 1;
-        $field2name = $row["seal_name"];
-        $field3name = $row["platform"];
-        $field4name = $row["ID"];
-        echo '<tr>
-				                      <td>' . $field1name . '</td>
-				                      <td>' . $field2name . '</td>
-				                      <td>';
-        if ($field3name == "1")
-        {
-            echo "PC";
-        }
-        elseif ($field3name == "2")
-        {
-            echo "Xbox";
-        }
-        elseif ($field3name == "3")
-        {
-            echo "PlayStation";
-        }
-        elseif ($field3name == "5")
-        {
-            echo "PC";
-        }
-        else
-        {
-            echo "Needs Updating";
-        }
-        echo '</td>
-				                      <td><button type="button" class="btn btn-warning active" data-toggle="modal" data-target="#moE' . $field1name . '">Edit</button></td>
-				                      <td><button type="button" class="btn btn-danger active" data-toggle="modal" data-target="#mo' . $field1name . '">Delete</button></td>
-				                  </tr>';
-        echo '<div class="modal fade" id="mo' . $field1name . '" tabindex="-1" aria-hidden="true">
-=======
+          <tr>
+              <td>#</td>
+              <td>CMDR</td>
+              <td>Platform</td>
+              <td colspan="2">Options</td>
+          </tr>';
   while ($row = $result->fetch_assoc()) {
     $field1name = $counter + 1;
     $field2name = $row["seal_name"];
@@ -143,7 +106,6 @@ if ($result->num_rows != 0) {
 				    <td><button type="button" class="btn btn-danger active" data-toggle="modal" data-target="#mo' . $field1name . '">Delete</button></td>
 				  </tr>
           <div class="modal fade" id="mo' . $field1name . '" tabindex="-1">
->>>>>>> Stashed changes
 				  <div class="modal-dialog modal-dialog-centered">
 				    <div class="modal-content">
 				      <div class="modal-header">
