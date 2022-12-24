@@ -40,17 +40,18 @@ if (isset($_GET['send'])) {
   $stmt->execute();
   $stmt->close();
   header("Location: .");
+  die();
 }
 if (isset($_GET['new'])) {
   foreach ($_REQUEST as $key => $value) {
     $lore[$key] = strip_tags(stripslashes(str_replace(["'", '"'], '', $value)));
   }
   if ($counter + 1 > 15) {
-    sessionValMessages("Error! Too many registered aliases.");
+    usError("Error! Too many registered aliases.");
     $validationErrors += 1;
   }
   if (!isset($lore["new_alias"])) {
-    sessionValMessages("Error! No alias set! Please try again.");
+    usError("Error! No alias set! Please try again.");
     $validationErrors += 1;
   }
   if ($validationErrors == 0) {
@@ -59,6 +60,7 @@ if (isset($_GET['new'])) {
     $stmt->execute();
     $stmt->close();
     header("Location: .");
+    die();
   }
 }
 if (isset($_GET['edit'])) {
@@ -66,7 +68,7 @@ if (isset($_GET['edit'])) {
     $lore[$key] = strip_tags(stripslashes(str_replace(["'", '"'], '', $value)));
   }
   if (!isset($lore["edt_alias"])) {
-    sessionValMessages("Error! No alias set! Please try again.");
+    usError("Error! No alias set! Please try again.");
     $validationErrors += 1;
   }
   if ($validationErrors == 0) {
@@ -75,6 +77,7 @@ if (isset($_GET['edit'])) {
     $stmt->execute();
     $stmt->close();
     header("Location: .");
+    die();
   }
 }
 ?>
